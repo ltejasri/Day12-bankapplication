@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,7 +21,30 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+/*
+	@Override
+	public Customer authenticate(Customer customer) throws DataAccessException{
+		try {
+			customer = jdbcTemplate.queryForObject(
+			"SELECT * FROM customer WHERE customer_id=? AND password = ?", new Object[] { customer.getCustomerId(), customer.getPassword() },new CustomerRowMapper());
+		BankAccount bankaccount = jdbcTemplate.
+		}
+	}
+		
+	}
 
+	@Override
+	public Customer updateProfile(Customer customer) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean updatePassword(Customer customer, String newPassword, String oldPassword) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+*/
 	@Override
 	public Customer authenticate(Customer customer) throws EmptyResultDataAccessException {
 

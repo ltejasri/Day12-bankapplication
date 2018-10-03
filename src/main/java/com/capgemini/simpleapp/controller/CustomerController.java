@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.capgemini.simpleapp.entities.Customer;
 import com.capgemini.simpleapp.entities.Customer.loginCheck;
@@ -24,6 +25,7 @@ public class CustomerController {
 	@Autowired
 	private CustomerService service;
 
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getHomePage() {
 		return "iciciHome";
@@ -68,11 +70,7 @@ public class CustomerController {
 			{
 				return "wrongCredentials";
 			}
-			
-			
 		} 
-
-
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String getDashboardPage() {
