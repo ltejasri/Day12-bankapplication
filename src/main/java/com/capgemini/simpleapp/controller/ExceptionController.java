@@ -5,43 +5,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.capgemini.simpleapp.entities.Customer;
 
 @ControllerAdvice
-public class ExceptionController
+public class ExceptionController extends ResponseEntityExceptionHandler 
 {
-	
-	@ExceptionHandler(value = AccountNotFoundException.class )
-	public String AccountNotFoundException(HttpServletRequest request, AccountNotFoundException exception, Model model)
+	@ExceptionHandler(value = { Exception.class })
+	protected String handleConflict(Exception ex,WebRequest request) 
 	{
-	System.out.println(exception);
-	request.setAttribute("name", "true");
-	request.setAttribute("accountnotfound","true");
-	System.out.println(exception.getCause());
-	model.addAttribute("customer",new Customer());
-	return "index";
+		System.out.println("Handler");
+		request.setAttribute("exception", ex, 0);
+		return "errorMessages";
 	}
-	
-	@ExceptionHandler(value = InsufficientAccountBalanceException.class)
-	public String InsufficientAccountBalanceException(HttpServletRequest request, InsufficientAccountBalanceException exception, Model model)
-	{
-		System.out.println(exception);
-		request.setAttribute("insufficientaccountbalance","true");
-		System.out.println(exception.getCause());
-		model.addAttribute("customer",new Customer());
-		return "success";
-		
-	}
-	
-	@ExceptionHandler(value = NegativeAmountException.class)
-	public String NegativeAmountException(HttpServletRequest request, NegativeAmountException exception)
-	{
-		System.out.println(exception);
-		request.setAttribute("negativeamount","true");
-		System.out.println(exception.getCause());
-		return "edit";
-		
-	}
-
 }
+	
